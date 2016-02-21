@@ -1,0 +1,118 @@
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.split-pane > .split-pane-divider {
+    left: 50em; /* Same as left component width */
+    width: 5px;
+    background: #AAA;
+}
+
+.split-pane > .split-pane-component.split-pane-component-left {
+    width: 50em;
+    min-width: 280px;
+    position: relative;
+    overflow: hidden;
+}
+
+.split-pane > .split-pane-component.split-pane-component-right {
+    left: 50em;  /* Same as left component width */
+    margin-left: 5px;  /* Same as divider width */
+}
+
+.preview-pane {
+    width: 100%;
+    height: 100vh;
+    border: none;
+}
+
+.editor-wrap {
+    width: 100%;
+    position: absolute;
+    top: 40px;
+    bottom: 48px;
+    background: #151515;
+    overflow: auto;
+}
+
+.editor {
+    width: 100%;
+    height: 100%;
+    font-family: "source-code-pro";
+    font-size: 14px;
+}
+
+.template-picker {
+    width: 100%;
+    margin: 0;
+    border: none;
+    position: absolute;
+    top: 0;
+    z-index: 100;
+    height: 30px;
+}
+
+.controls {
+    width: 100%;
+    padding: 9px;
+    position: absolute;
+    bottom: 0;
+    z-index: 100;
+    background: #FFF;
+    height: 48px;
+    background: #FFF;
+}
+
+label[for="auto-refresh"] + input {
+    display: none;
+}
+
+/*
+ * ##################################################
+ * SCROLLBAR STYLES #################################
+ * for webkit (and blink) browsers ##################
+ * ##################################################
+ */
+
+::-webkit-scrollbar {
+    width: 0;
+    height: 5px;
+    background-color: #333;
+}
+
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment {
+    width: 0;
+    height: 0;
+    display: block;
+    background-color: #111;
+}
+
+::-webkit-scrollbar-track-piece {
+    background-color: #111;
+}
+
+::-webkit-scrollbar-track-piece {
+    background-color: #222;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+    width: 100px;
+    background-color: rgb( 100, 100, 100 ) !important; /* $brand */
+}
+
+::-webkit-scrollbar-thumb:vertical {
+    height: 100px;
+    background-color: rgb( 100, 100, 100 ) !important; /* $brand */
+}

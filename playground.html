@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 	<head>
 		<meta charset="utf-8">
 		<title>jsPDF - Playground</title>
@@ -9,102 +11,14 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 
-		<!-- Bootstrap -->
-		<!--<link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet">-->
+		<!-- UIKit -->
 		<link href="//cdnjs.cloudflare.com/ajax/libs/uikit/2.25.0/css/uikit.min.css" rel="stylesheet">
 
-		<!-- Editor CSS -->
-		<link href="./examples/css/editor.css" rel="stylesheet">
-        
+		<!-- Vendor CSS -->
 		<link href="./vendor/split-pane/split-pane.css" rel="stylesheet">
-
-		<!-- See closing body for JS -->
-		<script src="http://use.edgefonts.net/source-code-pro.js"></script>
         
-        <style>
-        *,
-        *:before,
-        *:after {
-            box-sizing: border-box;
-        }
-        
-        body {
-            overflow: hidden;
-        }
-        
-        .preview-pane {width: 100%; height: 100vh; border: none;}
-        
-        .container {width: 100%; max-width: none; padding: 0;}
-        
-        #editor {width: 100%; height: 92vh;}
-        #template {width: 100%; margin: 0; border: none; border-radius: 0;}
-        .controls {width: 100%; padding: 9px;}
-        
-        label[for="auto-refresh"] + input {display: none;}
-        
-        /*
-         * ##################################################
-         * SCROLLBAR STYLES #################################
-         * for webkit (and blink) browsers ##################
-         * ##################################################
-         */
-        
-        
-        ::-webkit-scrollbar {
-            width: 0;
-            height: 10px;
-            background-color: #333;
-        }
-        
-        ::-webkit-scrollbar-button:start:decrement,
-        ::-webkit-scrollbar-button:end:increment {
-            width: 0;
-            height: 0;
-            display: block;
-            background-color: #111;
-        }
-        
-        ::-webkit-scrollbar-track-piece {
-            background-color: #111;
-        }
-        
-        ::-webkit-scrollbar-track-piece {
-            background-color: #222;
-        }
-        
-        ::-webkit-scrollbar-thumb:horizontal {
-            width: 100px;
-            background-color: rgb( 100, 100, 100 ) !important; /* $brand */
-        }
-        
-        ::-webkit-scrollbar-thumb:vertical {
-            height: 100px;
-            background-color: rgb( 100, 100, 100 ) !important; /* $brand */
-        }
-        
-        html, body {
-            height: 100%;
-            min-height: 100%;
-            margin: 0;
-            padding: 0;
-        }
-        .split-pane-divider {
-            background: #AAA;
-        }
-        #left-component {
-            width: 50em;
-            min-width: 400px;
-        }
-        #right-component {
-            left: 50em;  /* Same as left component width */
-            margin-left: 5px;  /* Same as divider width */
-            min-width: 5em;
-        } 
-        #divider {
-            left: 50em; /* Same as left component width */
-            width: 5px;
-        }
-        </style>
+		<!-- Base CSS -->
+		<link href="./assets/css/main.css" rel="stylesheet">
         
 	</head>
 
@@ -112,41 +26,46 @@
     
         <div class="split-pane fixed-left">
         
-            <div class="split-pane-component" id="left-component">
-
+            <div class="split-pane-component split-pane-component-left" id="left-component">
+            
                 <div class="template-picker">
+                
                 	<form class="uk-form">
-                        <select id="template" name="template" class="form-control">
+                        <select id="template" name="template" class="form-control uk-width-1-1 uk-form-large">
                             <option>Select an Example</option>
                         </select>
                     </form>
+                    
                 </div>
                 
-                <div id="editor" class="bypass"></div>
+                <div class="editor-wrap">
+                    <div id="editor" class="editor bypass"></div>
+                </div>
                 
                 <div class="controls">
                
-                    
-                    <label for="auto-refresh" class="uk-button uk-button-secondary uk-active">
-                         <i class="uk-icon-refresh"></i>
-                    </label>
-                    <input type="checkbox" id="auto-refresh" checked autocomplete="off">
-                    <!--<button class="uk-button uk-button-primary" type="button" data-uk-button>Button</button>
-                    <div class="uk-button-group" data-uk-button-checkbox>
-                        <button class="auto-refresh uk-button uk-active" aria-checked="true"><i class="uk-icon-refresh"></i></button>
-                    </div>-->
-                    <div class="uk-align-right">
-                        <a href="#" class="run-code hide uk-button uk-button-primary">Run Code</a>
-                        <a href="#" class="uk-button uk-button-primary download-pdf">Download PDF</a>
+                    <div class="uk-align-left uk-margin-remove">
+                        <label for="auto-refresh" class="uk-button uk-button-secondary uk-active">
+                             <i class="uk-icon-refresh"></i>
+                        </label>
+                        <input type="checkbox" id="auto-refresh" checked autocomplete="off">
                     </div>
+                    
+                    <div class="uk-align-right uk-margin-remove">
+                        <a href="#" class="uk-button uk-button-primary run-code hide"><i class="uk-icon-play"></i> Run</a>
+                        <a href="#" class="uk-button uk-button-primary download-pdf"><i class="uk-icon-file-pdf-o"></i> Download PDF</a>
+                    </div>
+                    
                </div>
 
             </div>
             
             <div class="split-pane-divider" id="divider"></div>
             
-            <div class="split-pane-component" id="right-component">
+            <div class="split-pane-component split-pane-component-right" id="right-component">
+            
                 <iframe class="preview-pane" frameborder="0"></iframe>
+                
             </div>
             
         </div><!-- /container -->
@@ -154,39 +73,29 @@
 		<!-- Scripts down here -->
 		<script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
         
-		<!--<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>-->
+		<!-- See closing body for JS -->
+		<script type="text/javascript" src="//use.edgefonts.net/source-code-pro.js"></script>
+        
+        <!-- UIKit -->
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/uikit/2.25.0/js/uikit.min.js"></script>
-		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/uikit/2.25.0/js/core/button.min.js"></script>
 		
-		<script type="text/javascript" src="./vendor/split-pane/split-pane.js"></script>
-
 		<!-- Code editor -->
-		<script type="text/javascript" src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" charset="utf-8"></script>
+		<script type="text/javascript" src="//d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" charset="utf-8"></script>
 
 		<!-- Scripts in development mode -->
-		<script type="text/javascript" src="jspdf.js"></script>
-		<script type="text/javascript" src="./libs/FileSaver.js/FileSaver.js"></script>
-		<script type="text/javascript" src="./libs/Blob.js/Blob.js"></script>
-		<script type="text/javascript" src="./libs/Blob.js/BlobBuilder.js"></script>
+		<script type="text/javascript" src="./dist/jspdf.min.js"></script>
+        
+		<script type="text/javascript" src="./vendor/split-pane/split-pane.js"></script>
 
-		<script type="text/javascript" src="./libs/Deflate/deflate.js"></script>
-		<script type="text/javascript" src="./libs/Deflate/adler32cs.js"></script>
-
-		<script type="text/javascript" src="./jspdf.plugin.addimage.js"></script>
-		<script type="text/javascript" src="./jspdf.plugin.from_html.js"></script>
-		<script type="text/javascript" src="./jspdf.plugin.ie_below_9_shim.js"></script>
-		<script type="text/javascript" src="./jspdf.plugin.sillysvgrenderer.js"></script>
-		<script type="text/javascript" src="./jspdf.plugin.split_text_to_size.js"></script>
-		<script type="text/javascript" src="./jspdf.plugin.standard_fonts_metrics.js"></script>
+		<script type="text/javascript" src="./plugins/addimage.js"></script>
+		<script type="text/javascript" src="./plugins/from_html.js"></script>
+		<script type="text/javascript" src="./plugins/svg.js"></script>
+		<script type="text/javascript" src="./plugins/split_text_to_size.js"></script>
+		<script type="text/javascript" src="./plugins/standard_fonts_metrics.js"></script>
 
 		<!-- Editor -->
-		<script type="text/javascript" src="./examples/js/editor.js"></script>
-        
-		<script type="text/javascript">
-		$(function() {
-			$('div.split-pane').splitPane();
-		});
-		</script>
+		<script type="text/javascript" src="./assets/js/editor.js"></script>
 
 	</body>
+    
 </html>
